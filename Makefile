@@ -1,17 +1,35 @@
 MAKEFLAGS += --silent
 
-.phony: list_device radxa-zero radxa-zero2
+.phony: list_device fip deb-pkg
 
 list_device:
 	echo Supported devices:
-	echo 	radxa_zero
-	echo 	radxa_zero2
+	echo 	radxa-zero
+	echo 	radxa-zero2
 
-radxa_zero:
-	cd radxa-zero && $(MAKE) UBOOT_BIN=$(UBOOT_BIN)
+fip:
+	cd $(BOARD) && $(MAKE) UBOOT_BIN=$(UBOOT_BIN)
 
-radxa_zero2:
-	cd radxa-zero2 && $(MAKE) UBOOT_BIN=$(UBOOT_BIN)
+deb-pkg: fip
+	mkdir -p ./.deb-pkg//usr/lib/u-boot-${BOARD}
+	cp $(BOARD)/u-boot* ./.deb-pkg//usr/lib/u-boot-${BOARD}
+	fpm -s dir -t deb -n $(BOARD)-ubootimg -v $(VERSION) \
+		-p $(BOARD)-ubootimg_$(VERSION)_all.deb \
+		--deb-priority optional --category admin \
+		--force \
+		--depends debsums \
+		--depends mtd-utils \
+		--deb-field "Multi-Arch: foreign" \
+		--deb-field "Replaces: $(BOARD)-ubootimg" \
+		--deb-field "Conflicts: $(BOARD)-ubootimg" \
+		--deb-field "Provides: $(BOARD)-ubootimg" \
+		--url https://github.com/radxa/u-boot \
+		--description "$(BOARD) u-boot package" \
+		--license "GPL-2+" \
+		-m "Radxa <dev@radxa.com>" \
+		--vendor "Radxa" \
+		-a all \
+		./.deb-pkg//=/
 
 clean:
 	cd radxa-zero && $(MAKE) clean

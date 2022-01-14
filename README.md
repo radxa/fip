@@ -4,7 +4,8 @@ Amlogic Firmware In Package - Prebuilt binaries/tools to pack Amlogic bootloader
 # Usage
 
     make list_device
-    make <device_name> UBOOT_BIN=/path/to/u-boot.bin
+    make fip BOARD=<device_name> UBOOT_BIN=/path/to/u-boot.bin
+    make deb-pkg BOARD=<device_name> VERSION=<version>
     make clean
     make distclean
 
