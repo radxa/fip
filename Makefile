@@ -8,7 +8,7 @@ list_device:
 	echo 	radxa-zero2
 
 fip:
-	cd $(BOARD) && $(MAKE) UBOOT_BIN=$(UBOOT_BIN)
+	cd $(BOARD) && $(MAKE) UBOOT_BIN=$(realpath $(UBOOT_BIN))
 
 deb-pkg: fip
 	mkdir -p ./.deb-pkg//usr/lib/u-boot-${BOARD}
