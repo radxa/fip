@@ -12,6 +12,7 @@
 #                    --bl2 bl2.n.bin.sig --bl30 bl30_new.bin.enc --bl31 bl31.img.enc     --bl33 bl33.bin.enc \
 #                    --ddrfw1 ddr4_1d.fw   --ddrfw2 ddr4_2d.fw   --ddrfw3 ddr3_1d.fw     --ddrfw4 piei.fw \
 #                    --ddrfw5 lpddr4_1d.fw --ddrfw6 lpddr4_2d.fw --ddrfw7 diag_lpddr4.fw --ddrfw8 aml_ddr.fw
+MAKEFLAGS += --silent
 
 .phony: clean
 
@@ -26,6 +27,12 @@ clean:
 distclean: clean
 	rm -f bl33.bin
 	rm -f u-boot.bin u-boot.bin.sd.bin u-boot.bin.usb.bl2 u-boot.bin.usb.tpl
+
+bl33.bin:
+	if [ -z $(UBOOT_BIN) ]; \
+		then echo "bl33.bin is missing and UBOOT_BIN is undefined." && false; \
+		else cp $(UBOOT_BIN) bl33.bin; \
+	fi
 
 bl30_new.bin: bl30.bin bl301.bin
 	./blx_fix.sh bl30.bin zero_tmp bl30_zero.bin bl301.bin bl301_zero.bin bl30_new.bin bl30
