@@ -35,10 +35,10 @@ bl33.bin:
 	fi
 
 bl30_new.bin: bl30.bin bl301.bin
-	./blx_fix.sh bl30.bin zero_tmp bl30_zero.bin bl301.bin bl301_zero.bin bl30_new.bin bl30
+	./blx_fix.sh bl30.bin zero_tmp1 bl30_zero.bin bl301.bin bl301_zero.bin bl30_new.bin bl30
 
 bl2_new.bin: bl2.bin acs.bin
-	./blx_fix.sh bl2.bin  zero_tmp bl2_zero.bin  acs.bin   bl21_zero.bin  bl2_new.bin  bl2
+	./blx_fix.sh bl2.bin  zero_tmp2 bl2_zero.bin  acs.bin   bl21_zero.bin  bl2_new.bin  bl2
 
 bl30_new.bin.g12a.enc: bl30_new.bin
 	./aml_encrypt_g12a --bl30sig --input bl30_new.bin	       --output bl30_new.bin.g12a.enc --level v3
