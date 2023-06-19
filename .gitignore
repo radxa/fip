@@ -1,2 +1,3 @@
-.deb-pkg/
+/.deb-pkg/
 *.deb
+/.vscode*
