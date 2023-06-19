@@ -11,8 +11,8 @@ fip:
 	$(MAKE) -C $(BOARD) UBOOT_BIN=$(realpath $(UBOOT_BIN))
 
 deb-pkg: fip
-	mkdir -p ./.deb-pkg/usr/lib/u-boot-${BOARD}
-	cp $(BOARD)/u-boot* ./.deb-pkg/usr/lib/u-boot-${BOARD}
+	mkdir -p ./.deb-pkg/usr/lib/u-boot-$(BOARD)
+	cp $(BOARD)/u-boot* ./.deb-pkg/usr/lib/u-boot-$(BOARD)
 	fpm -s dir -t deb -n $(BOARD)-ubootimg -v $(VERSION) \
 		-p $(BOARD)-ubootimg_$(VERSION)_all.deb \
 		--deb-priority optional --category admin \
