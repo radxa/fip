@@ -6,6 +6,7 @@ list_device:
 	echo Supported devices:
 	echo 	radxa-zero
 	echo 	radxa-zero2
+	echo 	radxa-zero-2pro
 
 fip:
 	$(MAKE) -C $(BOARD) UBOOT_BIN=$(realpath $(UBOOT_BIN))
